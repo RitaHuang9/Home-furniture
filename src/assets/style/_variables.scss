@@ -1,0 +1,36 @@
+// @font-face {
+//     font-family: Futura;
+//     src: url("./fonts/GenJyuuGothic-Bold.woff") format("woff"), 
+//         url("./fonts/GenJyuuGothic-Regular.woff") format("woff"),
+//         url("./fonts/GenJyuuGothic-Bold.ttf") format("truetype"), 
+//         url("./fonts/GenJyuuGothic-Regular.ttf") format("truetype");
+// }
+
+$font-family-base: "Microsoft JhengHei", 'futura-pt', -apple-system, "Noto Sans TC", Roboto, Arial, sans-serif;
+
+/* color-variables */
+
+$primary: #889D88;
+$primary-light: #B0BEB0;
+// $primary-dark: #003A4F;
+
+$secondary: #CBB291; 
+$secondary-light: #ECD9C1;
+// $secondary-dark: #A46039;
+
+$hightLight: #FF5136;
+$hightLight-light: #FFB5A4;
+$hightLight-dark: #CD331A;
+
+$gray:#898989;
+$gray-dark:#333333;
+$gray-light:#D7D7D7;
+
+
+$h1: 60px;
+$h2: 40px;
+$h3: 24px;
+$h4: 20px;
+$h5: 18px;
+$h6: 14px;
+$h7: 12px;
