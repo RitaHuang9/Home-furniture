@@ -43,6 +43,12 @@ const router = createRouter({
           name: 'index',
           component: () => import('../views/User/Index.vue'),
         },
+        {
+          path: 'product-list',
+          name: 'product-list',
+          component: () => import('../views/User/ProductList.vue'),
+        },
+
       ]
     }
   ]

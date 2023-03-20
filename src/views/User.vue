@@ -1,7 +1,7 @@
 <template>
   <header class="header-user">
     <div class="header-user-top">
-      <div class="header-user-box">
+      <div class="header-user-box" :class="{'black':currPath !== '/user/index'}">
         <img alt="Vue logo" class="logo" src="@/assets/images/logo-white.svg" />
         <nav class="nav">
           <RouterLink to="/">最新消息</RouterLink>
@@ -13,7 +13,7 @@
           >
           <RouterLink
             :to="{
-              name: 'login'
+              name: 'product-list'
             }"
             >傢俱選購</RouterLink
           >
@@ -44,7 +44,7 @@
     <user-sub-menu v-show="showSubMenu"></user-sub-menu>
   </header>
 
-  <RouterView />
+  <RouterView/>
 
   <footer class="footer-main" v-show=" currPath !== '/user/index'">
     <div class="footer-right">
@@ -106,7 +106,13 @@ export default {
   data() {
     return {
       showSubMenu: false,
-      currPath:'/'
+      currPath:'/',
+      menuPath:{
+        productList:{
+          path:'product-list',
+          name:'傢俱選購',
+        }
+      }
     }
   },
   components: {

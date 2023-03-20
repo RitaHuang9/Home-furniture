@@ -45,6 +45,24 @@
             padding: 8px 20px;
             margin: 0 auto;
             @include flex(center, space-between);
+            &.black{
+                .logo{
+                    content: url('@/assets/images/logo-black.svg');
+                }
+                .nav {
+                    a {
+                        color: $gray-dark;
+                    }
+                    &-icon {
+                        &-shopping {
+                            content: url("@/assets/images/shopping-car-black.svg");
+                        }
+                        &-member {
+                            content: url("@/assets/images/member-black.svg");
+                        }
+                    }
+                }
+            }
         }
         .nav {
             @include flex(center, space-between);

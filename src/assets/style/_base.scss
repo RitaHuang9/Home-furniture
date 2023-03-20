@@ -1,6 +1,6 @@
 *,
 *::before,
-*::after{
+*::after {
     box-sizing: border-box;
 }
 
@@ -12,15 +12,20 @@ body {
     line-height: 1.3;
 }
 
-
 a {
     text-decoration: none;
 }
 img {
     display: block;
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+.container {
+    max-width: 1280px;
+    padding: 80px 20px;
+    margin: 0 auto;
 }
 .text-right {
     text-align: right;
@@ -34,14 +39,19 @@ img {
     color: $primary;
 }
 
-.overflow-y-hid{
+.overflow-y-hid {
     overflow-y: hidden;
 }
-
 
 @for $width from 1 through 10 {
     .w-#{$width} {
         width: $width * 10% !important;
+    }
+}
+
+@for $mtTop from 1 through 10 {
+    .mt-#{$mtTop} {
+        margin-top: $mtTop * 4px !important;
     }
 }
 

@@ -2,7 +2,7 @@
   <header>
     <nav class="nav-home">
         <RouterLink :to="{
-          name: 'user'
+          name: 'index'
         }" class="nav-home-link">前台畫面</RouterLink>
 
         <RouterLink :to="{
