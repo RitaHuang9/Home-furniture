@@ -1,10 +1,7 @@
-// @font-face {
-//     font-family: Futura;
-//     src: url("./fonts/GenJyuuGothic-Bold.woff") format("woff"), 
-//         url("./fonts/GenJyuuGothic-Regular.woff") format("woff"),
-//         url("./fonts/GenJyuuGothic-Bold.ttf") format("truetype"), 
-//         url("./fonts/GenJyuuGothic-Regular.ttf") format("truetype");
-// }
+@font-face {
+    font-family: 'Gilda Display';
+    src: url("https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap");
+}
 
 $font-family-base: "Microsoft JhengHei", 'futura-pt', -apple-system, "Noto Sans TC", Roboto, Arial, sans-serif;
 

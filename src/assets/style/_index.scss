@@ -1,0 +1,55 @@
+.index {
+    &-banner {
+        background: url("@/assets/images/index-bg.png") center center no-repeat;
+        background-size: cover;
+        height: 100vh;
+        z-index: -2;
+        position: relative;
+        color: white;
+        padding: 0 20px;
+        @include flex(center,center);
+        &-title{
+            text-transform:uppercase;
+            font-family: 'Gilda Display';
+            font-size: $h1;
+        }
+        &-txt{
+            font-size: $h6;
+            letter-spacing: 4px;
+        }
+    }
+    &-content{
+        position: absolute;
+        padding: 0 20px;
+        z-index: 10;
+        text-align: center;
+    }
+    &-decorate {
+        width: 100%;
+        max-width: 335px;
+        height: 100%;
+        @include bg(index-decorate, svg, center, center, no-repeat, contain);
+        z-index: -1;
+    }
+}
+
+@include pad{
+    .index{
+        &-banner {
+            &-title{
+                font-size: $h2;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+@include mobile{
+    .index{
+        &-banner {
+            &-title{
+                font-size: 36px;
+            }
+        }
+    }
+}

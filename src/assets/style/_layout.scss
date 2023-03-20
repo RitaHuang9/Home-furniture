@@ -30,61 +30,252 @@
         width: 100%;
         position: fixed;
         width: 100%;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
+        z-index: 9999;
         .logo {
             max-width: 160px;
             width: 100%;
         }
+        &-top {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
         &-box {
             min-height: 76px;
-            max-width: 1240px;
+            max-width: 1280px;
             padding: 8px 20px;
             margin: 0 auto;
             @include flex(center, space-between);
         }
-        .nav{
-            @include flex(center,space-between);
-            a{
+        .nav {
+            @include flex(center, space-between);
+            a {
                 color: white;
-                &:not(:last-of-type){
+                &:not(:last-of-type) {
                     margin-right: 32px;
                 }
-                &:hover{
+                &:hover {
                     color: $secondary;
                 }
             }
-            &-icon{
-                &-shopping{
-                    &:hover{
-                        content: url('@/assets/images/shopping-car-gold.svg');
+            &-icon {
+                &-shopping {
+                    &:hover {
+                        content: url("@/assets/images/shopping-car-gold.svg");
                     }
                 }
-                &-member{
-                    &:hover{
-                        content: url('@/assets/images/member-gold.svg');
+                &-member {
+                    &:hover {
+                        content: url("@/assets/images/member-gold.svg");
                     }
                 }
             }
         }
-        .burger{
-            height: 24px;
-            @include flex(center,space-between,column);
-            &-item{
-                width: 28px;
-                height: 3px;
-                background-color: #fff;
+        .burger {
+            display: none;
+            &.active {
+                .burger-item {
+                    @include bg(burger-close, svg, center, center, no-repeat, cover);
+                }
+            }
+            &-item {
+                @include bg(burger, svg, center, center, no-repeat, cover);
+                width: 25px;
+                height: 25px;
+            }
+        }
+        .subMenu {
+            width: 100%;
+            border-top: 2px solid $secondary;
+            background-color: $gray-dark;
+            &-box {
+                max-width: 1280px;
+                padding: 20px;
+                margin: 0 auto;
+                @include flex(center, normal, column);
+                &-link {
+                    padding: 20px;
+                    width: 100%;
+                    text-align: center;
+                    border-top: 1px solid white;
+                    line-height: 1.5;
+                }
+                a {
+                    color: white;
+                }
+            }
+            &-icon {
+                width: 100%;
+                @include flex(center, center);
+                &-link {
+                    @include flex(center, center);
+                    width: 100%;
+                    margin: 20px 0;
+                }
+                a {
+                    &:not(:first-of-type) {
+                        border-left: 1px solid white;
+                    }
+                }
+                img {
+                    margin-right: 12px;
+                }
             }
         }
     }
 }
 
-@include pad{
-    .header{
-        &-user{
-            .nav{
+@include pad {
+    .header {
+        &-user {
+            .nav {
                 display: none;
             }
+            .burger {
+                @include flex(center, space-between, column);
+            }
+        }
+    }
+}
+
+.footer {
+    &-main {
+        position: relative;
+        @include flex(stretch, space-between);
+    }
+    &-right {
+        width: 30%;
+        padding: 100px 20px;
+        margin-top: 100px;
+        background-color: #efefef;
+        @include flex(center, center);
+        &-slogan {
+            margin-top: 24px;
+        }
+        &-top {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            height: 100px;
+        }
+    }
+    &-left {
+        width: 70%;
+        padding: 60px 100px 40px 40px;
+        background-color: $gray-dark;
+        color: white;
+        @include flex(flex-start, space-between, column);
+    }
+    &-nav {
+        @include flex(center);
+    }
+    &-link {
+        color: white;
+        margin-right: 20px;
+        position: relative;
+        &-circle {
+            display: inline-block;
+            margin-right: 20px;
+            top: calc(50% - 3px);
+            width: 6px;
+            height: 6px;
+            border-radius: 100%;
+            background-color: white;
+        }
+    }
+    &-info {
+        width: 100%;
+        &-title {
+            color: $gray-light;
+        }
+        &-content {
+            margin-top: 4px;
+            font-size: $h6;
+        }
+    }
+    &-bottom {
+        width: 100%;
+        @include flex(center, space-between);
+        font-size: $h6;
+        p {
+            width: 100%;
+        }
+    }
+    &-social {
+        font-size: $h5;
+        width: 100%;
+        @include flex(center, flex-end);
+        li:not(:first-child) {
+            border: 1px solid white;
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+            margin-left: 12px;
+            &:hover {
+                border: 1px solid $secondary;
+                background-color: $secondary;
+            }
+        }
+        &-yt {
+            @include bg(social_yt, svg, center, center, no-repeat, 24px);
+        }
+        &-fb {
+            @include bg(social_fb, svg, center, center, no-repeat, 24px);
+        }
+        &-line {
+            @include bg(social-line, svg, center, center, no-repeat, 24px);
+        }
+    }
+}
+
+@include desktop {
+    .footer {
+        &-main {
+            max-width: 1280px;
+            @include flex(center, space-between, column);
+        }
+        &-logo {
+            width: 100%;
+            max-width: 150px;
+        }
+        &-right {
+            width: 100%;
+            padding: 20px;
+            @include flex(center, flex-start);
+            &-slogan{
+                display: none;
+            }
+        }
+        &-left {
+            width: 100%;
+            padding: 20px;
+        }
+        &-info{
+            margin-top: 20px;
+        }
+        &-bottom{
+            margin-top: 20px;
+        }
+    }
+}
+
+@include pad{
+    .footer{
+        &-nav{
+            font-size: $h6;
+            flex-wrap: wrap;
+            
+        }
+        &-link{
+            margin: 8px 12px 8px 0;
+        }
+        &-bottom{
+            @include flex(center, space-between,column-reverse);
+        }
+        &-social{
+            @include flex(center, normal);
+            margin-bottom: 20px;
         }
     }
 }
