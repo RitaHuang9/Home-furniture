@@ -163,7 +163,6 @@ export default {
         .get(`${this.url}api/${this.api_path}/cart`)
         .then((res) => {
           this.cart = res.data.data
-          console.log('購物車清單', this.cart)
         })
         .catch((err) => {
           alert(err.response.data.message)
@@ -177,7 +176,6 @@ export default {
           this.getCarts();
 
           this.$refs.form.resetForm() //清空表單
-          console.log('訂單資訊',res.data.orderId);
           this.orderId = res.data.orderId
           this.$router.push(`finish-order/${this.orderId}`)
 

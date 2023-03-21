@@ -4,10 +4,12 @@
       <div class="header-user-box" :class="{'black':currPath !== '/user/index'}">
         <img alt="Vue logo" class="logo" src="@/assets/images/logo-white.svg" />
         <nav class="nav">
-          <RouterLink to="/">最新消息</RouterLink>
+          <RouterLink :to="{
+              name: 'index'
+            }">最新消息</RouterLink>
           <RouterLink
             :to="{
-              name: 'login'
+              name: 'index'
             }"
             >了解我們</RouterLink
           >
@@ -55,18 +57,21 @@
       </div>
       <div class="footer-left">
         <nav class="footer-nav">
-          <RouterLink class="footer-link" to="/">聯絡我們</RouterLink>
+          <RouterLink class="footer-link" :to="{
+              name: 'index'
+            }"
+            >聯絡我們</RouterLink>
           <div class="footer-link-circle"></div>
           <RouterLink class="footer-link"
             :to="{
-              name: 'login'
+              name: 'index'
             }"
             >最新消息</RouterLink
           >
           <div class="footer-link-circle"></div>
           <RouterLink class="footer-link"
             :to="{
-              name: 'login'
+              name: 'index'
             }"
             >了解我們</RouterLink
           >

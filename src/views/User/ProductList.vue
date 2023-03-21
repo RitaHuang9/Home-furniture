@@ -17,7 +17,9 @@
         </div>
         <ul class="product-card hot">
           <li class="product-card-item" v-for="item in hotProducts" :key="item.id">
-            <img class="product-card-img" :src="item.imageUrl" alt="" />
+            <div class="product-card-img">
+              <img :src="item.imageUrl" alt="" />
+            </div>
             <div class="product-card-title">{{ item.title }}</div>
             <div class="product-card-category">椅子</div>
           </li>
@@ -70,7 +72,6 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.hotProducts = this.products.slice(-3)
-          console.log('產品列表：', this.products, this.hotProducts)
         })
         .catch((err) => {
           alert(err)
