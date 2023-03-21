@@ -13,7 +13,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/Admin.vue'),
-      children:[
+      children: [
         {
           path: 'login',
           name: 'login',
@@ -37,7 +37,7 @@ const router = createRouter({
       path: '/user',
       name: 'user',
       component: () => import('../views/User.vue'),
-      children:[
+      children: [
         {
           path: 'index',
           name: 'index',
@@ -48,10 +48,40 @@ const router = createRouter({
           name: 'product-list',
           component: () => import('../views/User/ProductList.vue'),
         },
+        {
+          path: 'product-detail/:productId',
+          name: 'product-detail',
+          component: () => import('../views/User/ProductDetail.vue'),
+          props: true,
+        },
+        {
+          path: "carts",
+          name: "carts",
+          component: () => import("../views/User/Carts.vue"),
+        },
+        {
+          path: "send-order",
+          name: "send-order",
+          component: () => import("../views/User/SendOrder.vue"),
+        },
+        {
+          path: "finish-order/:orderId",
+          name: "finish-order",
+          component: () => import("../views/User/FinishOrder.vue"),
+          props: true,
+        },
 
       ]
+    },
+
+  ],
+  scrollBehavior(to,from,savedPostion){
+    if(to.fullPath.match('user')){
+      return{
+        top: 0,
+      }
     }
-  ]
+  }
 })
 
 export default router

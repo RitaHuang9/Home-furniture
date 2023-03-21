@@ -42,6 +42,7 @@
 
 
 
-// @mixin cursor{
-//     cursor: url(../images/icon/cursor.png), auto;
-// }
+@mixin cursor{
+    // cursor: url(../images/icon/cursor.png), auto;
+    cursor: pointer;
+}

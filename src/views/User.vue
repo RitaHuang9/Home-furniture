@@ -19,7 +19,7 @@
           >
           <RouterLink
             :to="{
-              name: 'login'
+              name: 'carts'
             }"
             class="nav-icon-shopping"
             ><img src="@/assets/images/shopping-car.svg" alt=""
@@ -73,7 +73,7 @@
           <div class="footer-link-circle"></div>
           <RouterLink class="footer-link"
             :to="{
-              name: 'login'
+              name: 'product-list'
             }"
             >家具選購</RouterLink
           >
@@ -107,12 +107,6 @@ export default {
     return {
       showSubMenu: false,
       currPath:'/',
-      menuPath:{
-        productList:{
-          path:'product-list',
-          name:'傢俱選購',
-        }
-      }
     }
   },
   components: {

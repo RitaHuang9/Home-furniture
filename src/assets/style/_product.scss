@@ -1,4 +1,5 @@
 .product {
+    // -------[產品列表]-----------//
     &-list {
         width: 100%;
         &-bg {
@@ -7,6 +8,7 @@
         }
         .page {
             &-title {
+                padding: 0 20px;
                 max-width: 1280px;
                 font-size: 128px;
                 color: $secondary;
@@ -46,7 +48,7 @@
         }
     }
     &-card {
-        @include flex(Center, flex-start);
+        @include flex(flex-start, flex-start);
         width: 100%;
         flex-wrap: wrap;
         gap: 53px;
@@ -67,8 +69,9 @@
             text-align: center;
             margin: 16px 0;
             position: relative;
+            @include cursor;
             &:hover {
-                .product-card{
+                .product-card {
                     &-img {
                         &::before {
                             content: "";
@@ -91,20 +94,16 @@
                             background-color: $gray-dark;
                         }
                     }
-                    &-title{
+                    &-title {
                         color: $primary;
                     }
                 }
-                
             }
         }
         &-img {
             background-color: #f2f2f2;
-            object-fit: cover;
-            height: 100%;
-            max-height: 270px;
             img {
-                height: 270px;
+                max-height: 270px;
             }
         }
         &-title {
@@ -131,6 +130,152 @@
             }
             &.active {
                 color: $primary;
+            }
+        }
+    }
+    // -------[產品內頁]-----------//
+    &-detail{
+        @include flex(center,space-between);
+        &-img{
+            width: 100%;
+            // position: relative;
+            img{
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            &::after{
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 30%;
+                height:100%;
+                display: block;
+                z-index: -1;
+                background-color: rgba(203, 203, 203, 0.3);
+            }
+        }
+        &-content{
+            width: 100%;
+
+        }
+        &-categroy{
+            font-size: $h6;
+            color: $secondary;
+        }
+        &-title{
+            font-size: $h3;
+            color: $primary;
+            margin-top: 4px;
+        }
+        &-txt{
+            margin-top: 16px;
+            padding-bottom: 16px;
+            color: $gray;
+            line-height: 1.5;
+            border-bottom: 1px solid $secondary;
+            margin-bottom: 16px;
+        }
+        &-description{
+            margin-top: 16px;
+            &-title{
+                font-size: $h6;
+                font-weight: bold;
+            }
+            &-txt{
+                font-size: $h6;
+                color: $gray;
+            }
+        }
+        &-addBox{
+            margin: 16px 0;
+            @include flex(center);
+            .addBox-select{
+                max-width: 200px;
+                padding: 12px 20px;
+            }
+            .btn{
+                margin: 0 auto 0 20px;
+            }
+        }
+        &-info{
+            &-title{
+                font-size: $h6;
+                font-weight: bold;
+            }
+            &-list{
+                list-style-type: disc;
+                padding: 8px 20px;
+            }
+            &-txt{
+                color: $gray;
+            }
+        }
+    }
+}
+
+@include pad {
+    .product {
+        &-list {
+            &-bg {
+                height: 300px;
+            }
+            .page {
+                &-title {
+                    font-size: $h1;
+                    letter-spacing: 3.5px;
+                }
+                &-sub-title {
+                    font-size: $h5;
+                }
+            }
+        }
+        &-hot {
+            display: none;
+        }
+        &-menu {
+            position: sticky;
+            top: 76px;
+            padding: 12px 0;
+            background-color: white;
+            z-index: 8888;
+        }
+        &-card {
+            gap: 20px;
+            &-item {
+                width: calc((100% - 40px) / 3);
+            }
+        }
+    }
+}
+
+@include mobile_lg {
+    .product {
+        &-list {
+            &-bg {
+                height: 200px;
+            }
+            .page {
+                &-title {
+                    font-size: $h3;
+                    padding-top: 80px;
+                }
+                &-sub-title {
+                    font-size: $h6;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+        &-card {
+            gap: 20px;
+            &-item {
+                width: calc((100% - 20px) / 2);
+            }
+        }
+        &-menu {
+            font-size: $h6;
+            &-link {
+                padding: 0 12px;
             }
         }
     }

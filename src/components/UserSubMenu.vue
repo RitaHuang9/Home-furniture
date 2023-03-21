@@ -4,7 +4,7 @@
       <div class="subMenu-icon">
         <RouterLink
           :to="{
-            name: 'login'
+            name: 'carts'
           }"
           class="subMenu-icon-link subMenu-icon-shopping"
           ><img src="@/assets/images/shopping-car.svg" alt="" />
@@ -27,7 +27,7 @@
       >
       <RouterLink class="subMenu-box-link"
         :to="{
-          name: 'login'
+          name: 'product-list'
         }"
         >傢俱選購</RouterLink
       >

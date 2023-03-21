@@ -24,16 +24,16 @@
         </ul>
       </div>
       <div class="product-all">
-        <ul class="product-menu">
+        <!-- <ul class="product-menu">
           <li class="product-menu-link active">全部</li>
           <li class="product-menu-link">椅子</li>
           <li class="product-menu-link">沙發</li>
           <li class="product-menu-link">櫃子</li>
           <li class="product-menu-link">桌子</li>
-        </ul>
+        </ul> -->
         <!-- <product-list-all class="mt-10" :products="products"></product-list-all> -->
         <ul class="product-card mt-10">
-          <li class="product-card-item" v-for="item in products" :key="item.id">
+          <li class="product-card-item" v-for="item in products" :key="item.id" @click="goProductDetail(item.id)">
             <div class="product-card-img">
               <img :src="item.imageUrl" alt="" />
             </div>
@@ -59,7 +59,6 @@ export default {
       url: import.meta.env.VITE_PATH,
       api_path: import.meta.env.VITE_API,
       products: {},
-      tempProduct: {},
       hotProducts: {}
     }
   },
@@ -76,6 +75,10 @@ export default {
         .catch((err) => {
           alert(err)
         })
+    },
+    // 開啟產品資訊
+    goProductDetail(productId){
+      this.$router.push(`product-detail/${productId}`)
     }
   },
   mounted() {
