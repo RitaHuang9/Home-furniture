@@ -49,13 +49,13 @@
 </template>
 
 <script>
-import ProductListAll from '@/components/ProductListAll.vue'
+// import ProductListAll from '@/components/ProductListAll.vue'
 import axios from 'axios'
 
 export default {
-  components: {
-    ProductListAll
-  },
+  // components: {
+  //   ProductListAll
+  // },
   data() {
     return {
       url: import.meta.env.VITE_PATH,
