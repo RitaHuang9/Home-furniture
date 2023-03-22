@@ -88,7 +88,7 @@ export default {
       }
       axios
         .post(`${this.url}api/${this.api_path}/cart`, { data })
-        .then((res) => {
+        .then(() => {
           alert(`已加入購物車囉`)
         })
         .catch((err) => {

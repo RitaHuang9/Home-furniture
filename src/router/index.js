@@ -75,6 +75,7 @@ const router = createRouter({
     },
 
   ],
+  // eslint-disable-next-line no-unused-vars
   scrollBehavior(to,from,savedPostion){
     if(to.fullPath.match('user')){
       return{

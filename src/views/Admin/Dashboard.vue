@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div :class="{'overflow-y-hid':showComponent}">
     <del-product-vue
@@ -76,7 +77,7 @@ export default {
           console.log('取得產品列表', this.products)
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          alert(err.response.data.message);
         })
     },
     goDetail(status, item) {
@@ -134,6 +135,7 @@ export default {
   },
 
   mounted() {
+    // eslint-disable-next-line no-useless-escape
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)rita009\s*\=\s*([^;]*).*$)|^.*$/, '$1')
     // https://github.com/axios/axios#global-axios-defaults
     axios.defaults.headers.common['Authorization'] = token

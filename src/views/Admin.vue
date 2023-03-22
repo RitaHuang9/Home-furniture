@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <header class="header-admin">
     <div class="header-admin-box">
@@ -59,6 +60,7 @@ export default {
 
   },
   mounted(){
+    // eslint-disable-next-line no-useless-escape
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)rita009\s*\=\s*([^;]*).*$)|^.*$/, '$1')
     // https://github.com/axios/axios#global-axios-defaults
     axios.defaults.headers.common['Authorization'] = token
