@@ -5,36 +5,40 @@
       <!-- {{ errors }}  -->
       <!-- {{ values }} -->
       <div class="feild">
-        <label for="email" class="form-label">Email</label>
-        <div class="feild-input">
-          <Field
-            id="email"
-            name="email"
-            type="email"
-            class="form-control"
-            :class="{ 'is-invalid': errors['email'] }"
-            placeholder="請輸入 Email"
-            rules="email|required"
-            v-model="user.username"
-          ></Field>
+        <div class="feild-body">
+          <label for="email" class="form-label">Email</label>
+          <div class="feild-input">
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              class="form-control"
+              :class="{ 'is-invalid': errors['email'] }"
+              placeholder="請輸入 Email"
+              rules="email|required"
+              v-model="user.username"
+            ></Field>
+          </div>
+          <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
         </div>
-        <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
       </div>
       <div class="feild">
-        <label for="password" class="form-label">密碼</label>
-        <div class="feild-input">
-          <Field
-            id="password"
-            name="密碼"
-            type="password"
-            class="form-control"
-            :class="{ 'is-invalid': errors['密碼'] }"
-            placeholder="請輸入密碼"
-            rules="required"
-            v-model="user.password"
-          ></Field>
+        <div class="feild-body">
+          <label for="password" class="form-label">密碼</label>
+          <div class="feild-input">
+            <Field
+              id="password"
+              name="密碼"
+              type="password"
+              class="form-control"
+              :class="{ 'is-invalid': errors['密碼'] }"
+              placeholder="請輸入密碼"
+              rules="required"
+              v-model="user.password"
+            ></Field>
+          </div>
+          <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
         </div>
-        <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
       </div>
       <button class="btn btn-secondary btn-lg" type="submit">登入</button>
     </Form>
@@ -73,6 +77,6 @@ export default {
           alert(err.response.data.message)
         })
     }
-  },
+  }
 }
 </script>
