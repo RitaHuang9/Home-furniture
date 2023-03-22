@@ -6,7 +6,8 @@
         <RouterLink to="/" class="test" v-show="this.checkLogin === true">前台首頁</RouterLink>
         <RouterLink :to="{
           name: 'login'
-        }">登入</RouterLink>
+        }" v-if="checkLogin === false"> 登入 </RouterLink>
+        <a href="#"  @click="signOut" v-if="checkLogin === true"> 登出 </a>
       </nav>
     </div>
   </header>
@@ -34,11 +35,28 @@ export default {
           })
         })
         .catch(() => {
+          this.checkLogin = false;  
           this.$router.push({
             name: 'login'
           })
         })
     },
+   signOut(){
+      axios
+        .post(`${this.url}logout`)
+        .then((res) => {  
+          alert(`已經登出囉！`)    
+          console.log('是否登出', res);
+             
+          this.$router.push({
+            name: 'login'
+          })
+        })
+        .catch((err) => {
+          alert(err.response.data.message)
+        })
+   }
+
   },
   mounted(){
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)rita009\s*\=\s*([^;]*).*$)|^.*$/, '$1')
