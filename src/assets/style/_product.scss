@@ -129,7 +129,9 @@
                 border-right: 1px solid $gray-dark;
             }
             &.active {
-                color: $primary;
+                a{
+                    color: $primary;
+                }
             }
         }
     }
@@ -209,6 +211,20 @@
             }
             &-txt{
                 color: $gray;
+            }
+        }
+    }
+}
+
+@include desktop{
+    .product{
+        &-detail{
+            @include flex(center,space-between,column);
+            &-img{
+                
+                &::after{
+                    content: none;
+                }
             }
         }
     }

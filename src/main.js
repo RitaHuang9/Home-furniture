@@ -16,6 +16,8 @@ import { localize, setLocale } from "@vee-validate/i18n";
 //匯入繁體中文語系檔案
 import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
 
+import InfiniteScroll from 'vue-infinite-scroll';
+
 //匯入全部規則
 Object.keys(AllRules).forEach((rule) => {
     defineRule(rule, AllRules[rule]);
@@ -38,5 +40,6 @@ app.component('ErrorMessage', ErrorMessage);
 
 app.use(createPinia())
 app.use(router)
+app.use(InfiniteScroll);
 app.use(VueAxios, axios)
 app.mount('#app')

@@ -47,6 +47,14 @@ const router = createRouter({
           path: 'product-list',
           name: 'product-list',
           component: () => import('../views/User/ProductList.vue'),
+          children:[
+            {
+              path: 'render-product/:categoryId',
+              name: 'render-product',
+              component: () => import('../views/User/ProductListAll.vue'),
+              props: true,
+            },
+          ]
         },
         {
           path: 'product-detail/:productId',
@@ -75,6 +83,8 @@ const router = createRouter({
     },
 
   ],
+  // lick active樣式
+  linkActiveClass: 'active',     //classname
   // eslint-disable-next-line no-unused-vars
   scrollBehavior(to,from,savedPostion){
     if(to.fullPath.match('user')){
