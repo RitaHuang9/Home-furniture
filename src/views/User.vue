@@ -55,7 +55,7 @@
           </div>
         </div>
       </div>
-      <user-sub-menu v-show="showSubMenu"></user-sub-menu>
+      <user-sub-menu v-show="showSubMenu" @click="showSubMenu === true"></user-sub-menu>
     </header>
 
     <RouterView />
@@ -156,6 +156,8 @@ export default {
   // },
   mounted() {
     this.currPath = this.$route.path
+    console.log('submenu',this.showSubMenu);
+    
     // window.addEventListener('scroll', this.handleScroll)
   }
 }

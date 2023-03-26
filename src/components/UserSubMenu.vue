@@ -1,6 +1,6 @@
 <template>
   <div class="subMenu">
-    <div class="subMenu-box">
+    <div class="subMenu-box" >
       <div class="subMenu-icon">
         <RouterLink
           :to="{
