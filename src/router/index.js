@@ -78,6 +78,11 @@ const router = createRouter({
           component: () => import("../views/User/FinishOrder.vue"),
           props: true,
         },
+        {
+          path: "about",
+          name: "about",
+          component: () => import("../views/User/About.vue"),
+        },
 
       ]
     },

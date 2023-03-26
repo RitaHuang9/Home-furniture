@@ -1,0 +1,73 @@
+.about {
+    max-width: 1040px;
+    &::before {
+        content: "";
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 20%;
+        left: -10%;
+        z-index: -1;
+        border-radius: 100%;
+        border: 1px solid $secondary;
+    }
+    &::after {
+        content: "";
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 43%;
+        left: 0%;
+        z-index: -1;
+        border-radius: 100%;
+        border: 1px solid $secondary;
+    }
+    &-banner {
+        width: 100%;
+        margin-top: 40px;
+    }
+    &-content {
+        position: relative;
+        margin-top: 40px;
+        line-height: 1.7;
+        text-align: justify;
+        &::before {
+            content: "ABOUT";
+            font-size: 100px;
+            position: absolute;
+            right: 0;
+            bottom: -60%;
+            color: $secondary;
+            opacity: 0.5;
+            font-family: "Gilda Display";
+        }
+    }
+}
+
+
+@include mobile_lg{
+    .about {
+        &::before {
+            content: "";
+            width: 150px;
+            height: 150px;
+            top: 23%;
+            left: -10%;
+        }
+        &::after {
+            content: "";
+            width: 150px;
+            height: 150px;
+            top: 37%;
+            left: -22%;
+        }
+        &-content {
+            &::before {
+                content: "ABOUT";
+                font-size: 80px;
+                right: 0;
+                bottom: -20%;
+            }
+        }
+    }
+}

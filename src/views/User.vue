@@ -3,7 +3,7 @@
   <div @scroll="onScroll">
     <header class="header-user" ref="indexBanner">
       <div class="header-user-top">
-        <div class="header-user-box" :class="{ 'black': currPath !== '/user/index','black' : isSticky }">
+        <div class="header-user-box" :class="{ 'black': currPath !== '/user/index'}">
           <RouterLink
             :to="{
               name: 'index'
@@ -21,7 +21,7 @@
             >
             <RouterLink
               :to="{
-                name: 'index'
+                name: 'about'
               }"
               >了解我們</RouterLink
             >
@@ -88,7 +88,7 @@
           <RouterLink
             class="footer-link"
             :to="{
-              name: 'index'
+              name: 'about'
             }"
             >了解我們</RouterLink
           >
@@ -132,8 +132,8 @@ export default {
       showSubMenu: false,
       currPath: '/',
       // bannerPosition:false,
-      isSticky: false,
-      targetPosition: 650 // 滾動到這個位置時 header 變成 sticky
+      // isSticky: false,
+      // targetPosition: 650 // 滾動到這個位置時 header 變成 sticky
     }
   },
   components: {
@@ -144,18 +144,19 @@ export default {
     closeSubMenu() {
       this.showSubMenu = false
     },
-    handleScroll() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-      this.isSticky = scrollTop > this.targetPosition
-    }
+    // FIX:監測滾動 「滾動超過banner時，新增class」
+    // handleScroll() {
+    //   const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+    //   this.isSticky = scrollTop > this.targetPosition
+    // }
   },
   // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll)
-  },
+  // beforeDestroy() {
+  //   window.removeEventListener('scroll', this.handleScroll)
+  // },
   mounted() {
     this.currPath = this.$route.path
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>

@@ -21,7 +21,7 @@
       <RouterLink class="subMenu-box-link" to="/">最新消息</RouterLink>
       <RouterLink class="subMenu-box-link"
         :to="{
-          name: 'login'
+          name: 'about'
         }"
         >了解我們</RouterLink
       >
