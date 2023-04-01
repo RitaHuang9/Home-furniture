@@ -55,7 +55,7 @@
           </div>
         </div>
       </div>
-      <user-sub-menu v-show="showSubMenu" @click="showSubMenu === true"></user-sub-menu>
+      <user-sub-menu v-show="showSubMenu" :go-to-page="goToPage"></user-sub-menu>
     </header>
 
     <RouterView />
@@ -131,9 +131,9 @@ export default {
     return {
       showSubMenu: false,
       currPath: '/',
-      // bannerPosition:false,
-      // isSticky: false,
-      // targetPosition: 650 // 滾動到這個位置時 header 變成 sticky
+      bannerPosition:false,
+      isSticky: false,
+      targetPosition: 650 // 滾動到這個位置時 header 變成 sticky
     }
   },
   components: {
@@ -144,21 +144,40 @@ export default {
     closeSubMenu() {
       this.showSubMenu = false
     },
+    // 選單轉跳頁面，關閉選單
+    goToPage(path){
+      
+      this.$router.push({
+        name: path
+      })
+      
+      this.showSubMenu = false;
+    },
     // FIX:監測滾動 「滾動超過banner時，新增class」
-    // handleScroll() {
-    //   const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    //   this.isSticky = scrollTop > this.targetPosition
-    // }
+    handleScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      this.isSticky = scrollTop > this.targetPosition
+
+      const header = document.querySelector('.header-user-box');
+      if(this.isSticky){
+        header.classList.add('black');
+      }else{
+        header.classList.remove('black');
+      }
+      console.log('是否間聽到header',this.isSticky);
+      
+    }
   },
   // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
-  // beforeDestroy() {
-  //   window.removeEventListener('scroll', this.handleScroll)
-  // },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   mounted() {
     this.currPath = this.$route.path
-    console.log('submenu',this.showSubMenu);
-    
-    // window.addEventListener('scroll', this.handleScroll)
+    console.log('現在頁面',this.currPath);
+    if(this.currPath === '/user/index'){
+      window.addEventListener('scroll', this.handleScroll)
+    }
   }
 }
 </script>

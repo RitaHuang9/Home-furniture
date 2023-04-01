@@ -62,6 +62,11 @@
                         }
                     }
                 }
+                .burger{
+                    &-item{
+                        @include bg(nav-black-burger, svg, center, center, no-repeat, cover);
+                    }
+                }
             }
         }
         .nav {
@@ -116,6 +121,7 @@
                     text-align: center;
                     border-top: 1px solid white;
                     line-height: 1.5;
+                    @include cursor;
                 }
                 a {
                     color: white;
@@ -126,6 +132,7 @@
                 @include flex(center, center);
                 &-link {
                     @include flex(center, center);
+                    @include cursor;
                     width: 100%;
                     margin: 20px 0;
                 }
@@ -157,7 +164,7 @@
                 }
                 @include flex(center, space-between, column);
                 &-item {
-                    @include bg(nav-black-burger, svg, center, center, no-repeat, cover);
+                    @include bg(burger, svg, center, center, no-repeat, cover);
                 }
             }
         }
