@@ -1,7 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="container">
-    <div class="goBack">
+    <toast></toast>
+    <div class="goBack" v-if="cart.carts ? cart.carts.length : false">
       <img class="goBack-icon" src="@/assets/images/back.svg" alt="" />
 
       <RouterLink
@@ -13,7 +14,9 @@
       >
     </div>
     <div class="page-title">Your cart</div>
-    <div class="flexBlock">
+    <!-- <div class="" v-if="cart.carts.length">sssss</div> -->
+    
+    <div class="flexBlock" v-if="cart.carts ? cart.carts.length : false">
       <div class="flexBlock-left w-7">
         <button type="button" class="btn btn-m btn-secondary-outline" @click="deleteAllCart">
           刪除全部品項
@@ -79,10 +82,24 @@
         >
       </div>
     </div>
+    <div class="text-center carts-nothing" v-else>
+      <h3 class="carts-nothing-txt">尚未有商品加入購物車唷</h3>
+      <!-- <button type="button" class="btn btn-secondary btn-lg mt-8">前往購物</button> -->
+      <RouterLink
+        class="btn btn-secondary btn-lg mt-8"
+        :to="{
+          name: 'product-list'
+        }"
+        >前往購物</RouterLink
+      >
+    </div>
   </div>
 </template>
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   data() {
@@ -92,17 +109,26 @@ export default {
       cart: {}
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     // 取得購物車
     getCarts() {
       axios
         .get(`${this.url}api/${this.api_path}/cart`)
         .then((res) => {
           this.cart = res.data.data
-          console.log('購物車清單', this.cart)
+          console.log('購物車',this.cart,this.cart.carts.length);
+          
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     // 更新購物車
@@ -113,42 +139,55 @@ export default {
       }
       axios
         .put(`${this.url}api/${this.api_path}/cart/${item.id}`, { data })
-        .then((res) => {
+        .then(() => {
           this.getCarts()
-          console.log('更新購物車', res)
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     // 刪除單筆購物車資訊
     deleteCartData(id) {
       axios
         .delete(`${this.url}api/${this.api_path}/cart/${id}`)
-        .then((res) => {
+        .then(() => {
           this.getCarts()
-          alert(`已刪除此品項`)
-          console.log('刪除單一購物車', res.data)
+          this.pushMessage({
+            style: 'success',
+            content: '已刪除此品項'
+          })
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     //刪除全部購物車
     deleteAllCart() {
       axios
         .delete(`${this.url}api/${this.api_path}/carts`)
-        .then((res) => {
-          this.getCarts();
-          alert(`已刪除全部購物車囉～`)
-          console.log('刪除全部購物車', res.data)
+        .then(() => {
+          this.getCarts()
+          this.pushMessage({
+            style: 'success',
+            content: '已刪除全部購物車囉～'
+          })
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     }
   },
-  mounted() {
+  created() {
+    this.cart.carts = [];
     this.getCarts()
   }
 }

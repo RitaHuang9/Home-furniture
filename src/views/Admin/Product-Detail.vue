@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2 class="title">{{ Boolean("this.productStatus") * 1 ?'新增':'編輯' }}產品</h2>
+    <toast></toast>
+    <h2 class="title">{{ Boolean('this.productStatus') * 1 ? '新增' : '編輯' }}產品</h2>
     <Form class="table-full" v-slot="{ errors }">
       <div class="feild">
         <div class="feild-body">
@@ -153,18 +154,19 @@
               name="是否啟用"
               type="checkbox"
               class="form-control"
-              value=true
+              value="true"
               v-model="tempProduct.is_enabled"
             >
             </Field>
 
-      
-          <label for="is_enabled" class="form-label" style="">是否啟用{{tempProduct.is_enabled}}</label>
+            <label for="is_enabled" class="form-label" style=""
+              >是否啟用{{ tempProduct.is_enabled }}</label
+            >
           </div>
 
           <ErrorMessage name="是否啟用" class="invalid-feedback"></ErrorMessage>
         </div>
-          <!-- {{template.is_enabled}} -->
+        <!-- {{template.is_enabled}} -->
       </div>
       <!-- <div class="feild">
         <div class="feild-body">
@@ -194,7 +196,10 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   props: ['dashboardId', 'productStatus'],
@@ -210,16 +215,23 @@ export default {
       tempUploadImg: {} //上傳圖片檔案
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     getData() {
       axios
         .get(`${this.url}api/${this.api_path}/product/${this.id}`)
         .then((res) => {
           this.tempProduct = res.data.product
-          console.log('單一產品資訊：', this.tempProduct)
         })
         .catch((err) => {
-          alert(err.reponse.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     updateProduct() {
@@ -233,21 +245,15 @@ export default {
         urlNew = `${this.url}api/${this.api_path}/admin/product/${this.tempProduct.id}`
       }
 
-      console.log('現在api', urlNew,method,isNew);
-      
       axios[method](urlNew, { data: this.tempProduct }) //api資料結構在data裡
         .then(() => {
           // 新增/更新產品後，需要再次取得產品，並將modal關閉
-          console.log('更新資料', this.tempProduct)
-
           this.$router.push({
-            name:'dashboard',
+            name: 'dashboard'
           })
         })
         .catch((err) => {
-          // alert(err.reponse.data.message)
-          console.log(err.response.data.message);
-          
+          alert(err.response.data.message)
         })
     },
     // 圖片上傳
@@ -267,15 +273,13 @@ export default {
         })
     },
     goBack() {
-      this.$router.go(-1);
-    },
+      this.$router.go(-1)
+    }
   },
   mounted() {
-    if(this.productStatus === 'false'){
-
-      this.getData();
+    if (this.productStatus === 'false') {
+      this.getData()
     }
-    console.log('動態參數資料', this.$route.params,'資料狀態',this.productStatus)
   }
 }
 </script>

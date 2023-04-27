@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
+    <toast></toast>
     <h2 class="title">立即登入</h2>
     <Form class="form-box" v-slot="{ errors }" @submit="login">
       <!-- {{ errors }}  -->
@@ -47,7 +48,10 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   data() {
@@ -60,7 +64,12 @@ export default {
       }
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     login() {
       const that = this
       axios
@@ -75,7 +84,10 @@ export default {
           })
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     }
   }

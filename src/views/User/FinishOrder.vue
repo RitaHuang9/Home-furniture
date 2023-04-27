@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <toast></toast>
     <h2 class="page-title-center">完成訂單</h2>
     <h3 class="page-subtitle-center">感謝您的信任與購買，以下為您的購買資訊</h3>
     <div class="finishOrder">
@@ -14,7 +15,7 @@
         </li>
         <li class="finishOrder-list">
           <div class="finishOrder-list-title">成立日期</div>
-          <div class="finishOrder-list-txt"> {{ timesTamp(order.create_at) }}</div>
+          <div class="finishOrder-list-txt">{{ timesTamp(order.create_at) }}</div>
         </li>
       </ul>
       <ul class="line-top">
@@ -33,29 +34,37 @@
       </ul>
     </div>
     <RouterLink
-          :to="{
-            name: 'product-list'
-          }"
-          class="btn btn-lg btn-secondary mt-5"
-          >繼續選購家具</RouterLink
-        >
+      :to="{
+        name: 'product-list'
+      }"
+      class="btn btn-lg btn-secondary mt-5"
+      >繼續選購家具</RouterLink
+    >
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
+import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
-  props:['orderId'],
+  props: ['orderId'],
   data() {
     return {
       id: this.$route.params.orderId,
       url: import.meta.env.VITE_PATH,
       api_path: import.meta.env.VITE_API,
-      order: {},
+      order: {}
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     // 取得購物車
     getOrder() {
       axios
@@ -64,17 +73,20 @@ export default {
           this.order = res.data.order
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     // 轉換時間戳
-    timesTamp(time){
-      let newTime = new Date(time * 1000) ;
-      return newTime.getFullYear() + '/' + (newTime.getMonth()+1) + '/' + newTime.getDate()
+    timesTamp(time) {
+      let newTime = new Date(time * 1000)
+      return newTime.getFullYear() + '/' + (newTime.getMonth() + 1) + '/' + newTime.getDate()
     }
   },
   mounted() {
-    this.getOrder();
+    this.getOrder()
   }
 }
 </script>

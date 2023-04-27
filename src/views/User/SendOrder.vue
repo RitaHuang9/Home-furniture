@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <toast></toast>
     <div class="goBack">
       <img class="goBack-icon" src="@/assets/images/back.svg" alt="" />
 
@@ -136,7 +137,10 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   data() {
@@ -153,10 +157,15 @@ export default {
         },
         message: ''
       },
-      orderId:''
+      orderId: ''
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     // 取得購物車
     getCarts() {
       axios
@@ -165,7 +174,10 @@ export default {
           this.cart = res.data.data
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     createOrder() {
@@ -173,16 +185,20 @@ export default {
       axios
         .post(`${this.url}api/${this.api_path}/order`, { data: order })
         .then((res) => {
-          this.getCarts();
-
+          this.getCarts()
           this.$refs.form.resetForm() //清空表單
           this.orderId = res.data.orderId
           this.$router.push(`finish-order/${this.orderId}`)
-
-          alert(`訂單已送出～～`)
+          this.pushMessage({
+            style: 'success',
+            content: '訂單已送出～～'
+          })
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     }
   },

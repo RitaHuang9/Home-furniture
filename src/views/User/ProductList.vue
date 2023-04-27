@@ -1,5 +1,6 @@
 <template>
   <div class="product-list">
+    <toast></toast>
     <div class="product-list-bg">
       <div class="page-title">
         design
@@ -30,26 +31,19 @@
           </li>
         </ul>
       </div>
-     
+
       <div class="product-all">
         <ul class="product-menu">
-          <li class="product-menu-link" 
-          :class="{'active': name === '全部'}">
+          <li class="product-menu-link" :class="{ active: name === '全部' }">
             <a href="#" @click.prevent="renderProduct('全部')">全部</a>
           </li>
-          <li class="product-menu-link" 
-          :class="{'active': name === '椅子'}"
-          >
+          <li class="product-menu-link" :class="{ active: name === '椅子' }">
             <a href="#" @click.prevent="renderProduct('椅子')">椅子</a>
           </li>
-          <li class="product-menu-link"
-          :class="{'active': name === '櫃子'}"
-          >
+          <li class="product-menu-link" :class="{ active: name === '櫃子' }">
             <a href="#" @click.prevent="renderProduct('櫃子')">櫃子</a>
           </li>
-          <li class="product-menu-link"
-          :class="{'active': name === '沙發'}"
-          >
+          <li class="product-menu-link" :class="{ active: name === '沙發' }">
             <a href="#" @click.prevent="renderProduct('沙發')">沙發</a>
           </li>
         </ul>
@@ -74,7 +68,10 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   data() {
@@ -83,11 +80,16 @@ export default {
       api_path: import.meta.env.VITE_API,
       products: {},
       hotProducts: {},
-      name:'全部',
+      name: '全部',
       newProducts: {}
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     // 取得產品列表
     getData() {
       axios
@@ -95,10 +97,13 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.hotProducts = this.products.slice(-3)
-          this.newProducts = this.hotProducts
+          this.newProducts = this.products
         })
         .catch((err) => {
-          alert(err)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     // 開啟產品資訊
@@ -119,13 +124,11 @@ export default {
       }
 
       this.name = this.newProducts[0].category
-      console.log('類別名稱', this.name);
-      
     }
   },
   mounted() {
     this.getData()
-    this.renderProduct('全部');
+    this.renderProduct('全部')
   }
 }
 </script>

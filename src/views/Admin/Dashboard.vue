@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div :class="{'overflow-y-hid':showComponent}">
+  <div :class="{ 'overflow-y-hid': showComponent }">
+    <toast></toast>
     <del-product-vue
       v-show="showComponent"
       :temp-product="tempProduct"
@@ -48,9 +49,12 @@
 </template>
 
 <script>
-import axios from 'axios';
-import delProductVue from '@/components/DelProduct.vue';
-import pagination from '@/components/Pagination.vue';
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
+import axios from 'axios'
+import Toast from '@/components/Toast.vue'
+import delProductVue from '@/components/DelProduct.vue'
+import pagination from '@/components/Pagination.vue'
 
 export default {
   data() {
@@ -68,6 +72,8 @@ export default {
     }
   },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     getProduct(page = 1) {
       axios
         .get(`${this.url}api/${this.api_path}/admin/products/?page=${page}`)
@@ -77,17 +83,15 @@ export default {
           console.log('取得產品列表', this.products)
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          alert(err.response.data.message)
         })
     },
     goDetail(status, item) {
       if (status === 'add') {
         this.isNew = true
-
         this.tempProduct = {
           imagesUrl: []
         }
-
         this.$router.push({
           path: `dashboard-product-detail/${this.tempProduct.id}/${this.isNew}`
         })
@@ -115,23 +119,27 @@ export default {
           this.closeModal()
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
-    },
+    }
   },
-  watch:{
+  watch: {
     // 監聽modal：若是為開啟狀態body則無法滾動
-    showComponent: function(status){
-      if(status === true){
-        document.body.classList.add('overflow-y-hid');
-      }else{
-        document.body.classList.remove('overflow-y-hid');
+    showComponent: function (status) {
+      if (status === true) {
+        document.body.classList.add('overflow-y-hid')
+      } else {
+        document.body.classList.remove('overflow-y-hid')
       }
     }
   },
   components: {
     delProductVue,
-    pagination
+    pagination,
+    Toast
   },
 
   mounted() {

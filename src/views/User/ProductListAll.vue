@@ -1,5 +1,6 @@
 <template>
   <div>
+    <toast></toast>
     <ul class="product-card">
       <li class="product-card-item" v-for="item in newProducts" :key="item.id">
         <div class="product-card-img">
@@ -13,7 +14,10 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   props: ['categoryId'],
@@ -28,7 +32,12 @@ export default {
       }
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     // 取得產品列表
     getData() {
       axios
@@ -36,10 +45,12 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.newProducts = this.products
-          console.log('產品列表', this.products)
         })
         .catch((err) => {
-          alert(err)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     // 產品頁分類

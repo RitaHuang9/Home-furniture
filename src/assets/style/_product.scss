@@ -140,7 +140,9 @@
         @include flex(center,space-between);
         &-img{
             width: 100%;
-            // position: relative;
+            &-item{
+                height: 500px;
+            }
             img{
                 max-width: 500px;
                 margin: 0 auto;
@@ -221,7 +223,6 @@
         &-detail{
             @include flex(center,space-between,column);
             &-img{
-                
                 &::after{
                     content: none;
                 }
@@ -292,6 +293,13 @@
             font-size: $h6;
             &-link {
                 padding: 0 12px;
+            }
+        }
+        &-detail{
+            &-img{
+                &-item{
+                    height: 300px;
+                }
             }
         }
     }

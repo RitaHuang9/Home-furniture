@@ -3,7 +3,7 @@
   <div @scroll="onScroll">
     <header class="header-user" ref="indexBanner">
       <div class="header-user-top">
-        <div class="header-user-box" :class="{ 'black': currPath !== '/user/index'}">
+        <div class="header-user-box" :class="{ 'black': isSticky}">
           <RouterLink
             :to="{
               name: 'index'
@@ -55,11 +55,11 @@
           </div>
         </div>
       </div>
+      <!-- 手機版選單 -->
       <user-sub-menu v-show="showSubMenu" :go-to-page="goToPage"></user-sub-menu>
     </header>
 
     <RouterView />
-    <!-- v-show="currPath !== '/user/index'" -->
     <footer class="footer-main">
       <div class="footer-right">
         <div class="footer-right-content">
@@ -146,38 +146,36 @@ export default {
     },
     // 選單轉跳頁面，關閉選單
     goToPage(path){
-      
       this.$router.push({
         name: path
       })
-      
       this.showSubMenu = false;
     },
     // FIX:監測滾動 「滾動超過banner時，新增class」
     handleScroll() {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       this.isSticky = scrollTop > this.targetPosition
-
-      const header = document.querySelector('.header-user-box');
-      if(this.isSticky){
-        header.classList.add('black');
-      }else{
-        header.classList.remove('black');
-      }
-      console.log('是否間聽到header',this.isSticky);
-      
     }
   },
   // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll)
-  },
+  // beforeUnmount() {
+  //   window.removeEventListener('scroll', this.handleScroll)
+  // },
   mounted() {
     this.currPath = this.$route.path
-    console.log('現在頁面',this.currPath);
-    if(this.currPath === '/user/index'){
-      window.addEventListener('scroll', this.handleScroll)
-    }
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  created(){
+    this.$router.beforeEach((to, from, next) => {
+      if (to.path === '/user/index') {
+        window.addEventListener('scroll', this.handleScroll)
+      } else if(to.path !== '/user/index') {
+        window.removeEventListener('scroll', this.handleScroll)
+        this.isSticky = true
+      }
+      next()
+      
+    })
   }
 }
 </script>

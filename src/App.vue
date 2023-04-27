@@ -6,15 +6,3 @@
   @import './assets/style/all';
 </style>
 
-// <script>
-// import { RouterLink, RouterView } from 'vue-router'
-
-// export default{
-//   data(){
-//     return{
-
-//     }
-//   }
-// }
-// </script>
-

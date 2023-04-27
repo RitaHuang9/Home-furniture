@@ -61,6 +61,9 @@ const router = createRouter({
           name: 'product-detail',
           component: () => import('../views/User/ProductDetail.vue'),
           props: true,
+          meta:{
+            preload: true,
+          }
         },
         {
           path: "carts",

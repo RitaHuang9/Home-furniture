@@ -299,15 +299,15 @@ form {
     &-title {
         font-size: $h3;
         margin-top: 20px;
-        text-transform:uppercase;
-        &-center{
+        text-transform: uppercase;
+        &-center {
             font-size: $h3;
             margin-top: 20px;
             text-align: center;
         }
     }
-    &-subtitle{
-        &-center{
+    &-subtitle {
+        &-center {
             font-size: $h6;
             margin-top: 12px;
             text-align: center;
@@ -334,10 +334,10 @@ form {
     .flexBlock {
         @include flex(normal, normal, column);
         .w-7,
-        .w-3{
+        .w-3 {
             width: 100% !important;
-        };
-        &-right{
+        }
+        &-right {
             border-left: none;
             margin-top: 20px;
             border-top: 1px solid $gray-dark;
@@ -346,7 +346,7 @@ form {
 }
 @include pad {
     .flexBlock {
-        &-right{
+        &-right {
             padding-left: 0;
         }
     }
@@ -395,21 +395,30 @@ form {
             text-decoration: line-through;
         }
     }
+    &-nothing{
+        margin-top: 40px;
+        &-txt{
+            font-size: $h5;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            color: $primary;
+        }
+    }
 }
 
-@include pad{
-    .carts{
-        &-list{
-            @include flex(normal,normal,column);
-            &-box{
-                &:nth-of-type(2){
+@include pad {
+    .carts {
+        &-list {
+            @include flex(normal, normal, column);
+            &-box {
+                &:nth-of-type(2) {
                     padding-left: 32px;
                 }
             }
         }
     }
 }
-
+// 結帳-小計樣式
 .summery {
     margin-top: 20px;
     &-list {
@@ -433,32 +442,76 @@ form {
     }
 }
 
-.finishOrder{
+.finishOrder {
     width: 30%;
     margin: 24px auto;
     padding: 24px;
-    background-color: #F4F4F4;
-    &-list{
-        @include flex(center,space-between);
-        &:not(:last-of-type){
+    background-color: #f4f4f4;
+    &-list {
+        @include flex(center, space-between);
+        &:not(:last-of-type) {
             padding-bottom: 12px;
         }
-        &-title{
+        &-title {
             color: $primary;
             font-size: $h6;
             font-weight: bold;
         }
-        &-txt{
+        &-txt {
             width: calc(100% - 100px);
             font-size: $h6;
         }
     }
 }
 
-.line{
-    &-top{
+.line {
+    &-top {
         border-top: 1px solid $gray-light;
         padding-top: 12px;
         margin-top: 12px;
+    }
+}
+
+// 提示訊息-toast
+.toast {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    background-color: $primary;
+    margin: 0 0 0 auto;
+    padding: 12px 10px;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 25%);
+    display: none;
+    &.show{
+        @include flex(flex-start,space-between);
+    }
+    &-container {
+        position: fixed;
+        top: 88px;
+        right: 80px;
+        z-index: 9998;
+        width: 100%;
+        gap: 10px;
+        @include flex(normal,normal,column);
+    }
+    &-close {
+        max-width: 26px;
+        padding: 5px;
+        @include cursor;
+        &:hover{
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+    }
+    &-statu{
+        max-width: 20px;
+        margin-right: 12px;
+    }
+    &-message{
+        width: calc(100% - 30px);
+        color: white;
+        padding-top: 2px;
+        @include flex(flex-start);
     }
 }

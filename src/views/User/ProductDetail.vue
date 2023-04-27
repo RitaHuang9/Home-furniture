@@ -1,8 +1,8 @@
 <template>
   <div class="container">
+    <toast></toast>
     <div class="goBack">
       <img class="goBack-icon" src="@/assets/images/back.svg" alt="" />
-
       <RouterLink
         class="goBack-link"
         :to="{
@@ -13,7 +13,14 @@
     </div>
     <div class="product-detail">
       <div class="product-detail-img">
-        <img :src="tempProduct.imageUrl" alt="" />
+        <!-- <img :src="tempProduct.imageUrl" alt="" /> -->
+        <div
+          :style="{
+            background:
+              'transparent url(' + tempProduct.imageUrl + ') no-repeat center center / contain',
+            border: '1px solid transparent',
+          }" class="product-detail-img-item"
+        ></div>
       </div>
       <div class="product-detail-content">
         <div class="product-detail-categroy">{{ tempProduct.category }}</div>
@@ -63,7 +70,10 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '../../stores/toastStores'
 import axios from 'axios'
+import Toast from '@/components/Toast.vue'
 
 export default {
   props: ['productId'],
@@ -76,7 +86,12 @@ export default {
       qty: 1
     }
   },
+  components: {
+    Toast
+  },
   methods: {
+    // 使用 mapAction 取得 Pinia 的方法
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     getData() {
       axios
         .get(`${this.url}api/${this.api_path}/product/${this.id}`)
@@ -84,7 +99,10 @@ export default {
           this.tempProduct = res.data.product
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     },
     addCart(product_id, qty = 1) {
@@ -95,10 +113,16 @@ export default {
       axios
         .post(`${this.url}api/${this.api_path}/cart`, { data })
         .then(() => {
-          alert(`已加入購物車囉`)
+          this.pushMessage({
+            style: 'success',
+            content: '已加入購物車囉'
+          })
         })
         .catch((err) => {
-          alert(err.response.data.message)
+          this.pushMessage({
+            style: 'error',
+            content: err.response.data.message
+          })
         })
     }
   },
