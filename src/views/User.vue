@@ -3,7 +3,7 @@
   <div @scroll="onScroll">
     <header class="header-user" ref="indexBanner">
       <div class="header-user-top">
-        <div class="header-user-box" :class="{ 'black': isSticky}">
+        <div class="header-user-box" :class="{ black: isSticky }">
           <RouterLink
             :to="{
               name: 'index'
@@ -126,12 +126,13 @@
 <script>
 import UserSubMenu from '@/components/UserSubMenu.vue'
 
+
 export default {
   data() {
     return {
       showSubMenu: false,
       currPath: '/',
-      bannerPosition:false,
+      bannerPosition: false,
       isSticky: false,
       targetPosition: 650 // 滾動到這個位置時 header 變成 sticky
     }
@@ -145,36 +146,30 @@ export default {
       this.showSubMenu = false
     },
     // 選單轉跳頁面，關閉選單
-    goToPage(path){
-      this.$router.push({
-        name: path
-      })
-      this.showSubMenu = false;
+    goToPage(path) {
+      this.$router.push({ name: path })
+      this.showSubMenu = false
     },
     // FIX:監測滾動 「滾動超過banner時，新增class」
     handleScroll() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       this.isSticky = scrollTop > this.targetPosition
     }
   },
-  // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
-  // beforeUnmount() {
-  //   window.removeEventListener('scroll', this.handleScroll)
-  // },
   mounted() {
     this.currPath = this.$route.path
     window.removeEventListener('scroll', this.handleScroll)
   },
-  created(){
+  created() {
     this.$router.beforeEach((to, from, next) => {
       if (to.path === '/user/index') {
         window.addEventListener('scroll', this.handleScroll)
-      } else if(to.path !== '/user/index') {
+      } else if (to.path !== '/user/index') {
         window.removeEventListener('scroll', this.handleScroll)
         this.isSticky = true
       }
       next()
-      
     })
   }
 }
