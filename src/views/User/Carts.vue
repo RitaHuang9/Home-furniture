@@ -121,7 +121,6 @@ export default {
         .get(`${this.url}api/${this.api_path}/cart`)
         .then((res) => {
           this.cart = res.data.data
-          console.log('購物車',this.cart,this.cart.carts.length);
           
         })
         .catch((err) => {

@@ -80,7 +80,6 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.page = res.data.pagination
-          console.log('取得產品列表', this.products)
         })
         .catch((err) => {
           alert(err.response.data.message)
